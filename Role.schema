@@ -1,3 +1,0 @@
-ADD roleID char 5
-ADD roleName char 15
-ADD roleDesc char 50

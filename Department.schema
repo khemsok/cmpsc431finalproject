@@ -1,3 +1,0 @@
-ADD deptID char 5
-ADD deptName char 15
-ADD numberOfBeds char 5

@@ -1,5 +1,0 @@
-ADD deptNeedID char 5
-ADD dn_deptID char 5
-ADD dn_roleID char 5
-ADD dn_certID char 5
-ADD staffNeeded char 5

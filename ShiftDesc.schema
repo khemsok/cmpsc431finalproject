@@ -1,4 +1,0 @@
-ADD shiftDescID char 5
-ADD shiftName char 10
-ADD startTime char 6
-ADD duration char 6

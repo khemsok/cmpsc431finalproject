@@ -1,4 +1,0 @@
-ADD calendarID char 5
-ADD _date char 11
-ADD weekNumber char 3
-ADD dayOfWeek char 10
