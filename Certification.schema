@@ -1,0 +1,3 @@
+ADD certID char 5
+ADD certName char 15
+ADD certDesc char 55

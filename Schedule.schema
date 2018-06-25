@@ -1,0 +1,5 @@
+ADD scheduleID char 5
+ADD schedule_calendarID char 5
+ADD schedule_shiftDescID char 5
+ADD schedule_deptID char 5
+ADD schedule_employeeID char 5
