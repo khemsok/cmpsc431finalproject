@@ -1,0 +1,7 @@
+SELECT deptName, shiftName, salary, duration
+FROM Schedule, Employee, Department, ShiftDesc, Calendar
+WHERE employeeID = schedule_employeeID
+AND deptID = schedule_deptID
+AND shiftDescID = schedule_shiftDescID
+AND calendarID = schedule_calendarID
+END

@@ -1,0 +1,8 @@
+SELECT lastName, firstName, _date, dayOfWeek, shiftName, deptName, roleName
+FROM Schedule, Employee, Calendar, Department, ShiftDesc, Role
+WHERE employeeID = schedule_employeeID
+AND calendarID = schedule_calendarID
+AND deptID = schedule_deptID
+AND shiftDescID = schedule_shiftDescID
+AND roleID = employee_roleID
+END

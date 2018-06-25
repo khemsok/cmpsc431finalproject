@@ -1,0 +1,134 @@
+CREATE TABLE Role
+ADD roleID char 5
+ADD roleName char 15
+ADD roleDesc char 50
+END
+INSERT INTO Role 0001,Nurse,Nurses patients
+INSERT INTO Role 0002,Phlebotomist,Draws blood from patients
+INSERT INTO Role 0003,Surgeon,Operates on patients
+CREATE TABLE Certification
+ADD certID char 5
+ADD certName char 15
+ADD certDesc char 55
+END
+INSERT INTO Certification 0001,RMA,The Registered Medical Assistant (RMA) Credential
+INSERT INTO Certification 0002,BMedSci,Bachelor of Medicine Bachelor of Surgery
+INSERT INTO Certification 0003,CMA,The Certified Medical Assistant (CMA) Credential
+INSERT INTO Certification 0004,MD-PhD,The Doctorate of Medicine and of Philosophy (MD-PhD)
+CREATE TABLE Employee
+ADD employeeID char 5
+ADD firstName char 25
+ADD lastName char 25
+ADD middleName char 25
+ADD streetAddress char 255
+ADD city char 50
+ADD state char 3
+ADD zip char 10
+ADD homePhone char 20
+ADD FTPT char 4
+ADD salary char 5
+ADD employee_roleID char 5
+ADD employee_certID char 5
+END
+INSERT INTO Employee 0001,Berryman,Martha,n/a,1120 Clay Ave,Bronx,NY,10456,732-461-9820,FT,0032,0001,0001
+INSERT INTO Employee 0002,Deschomp,Harold,n/a,1172 E 73rd St,Brooklyn,NY,11224,929-275-3170,FT,0015,0002,0001
+INSERT INTO Employee 0003,Thomas,Jo,Josefina,1780 Lafayette Ave,Bronx,NY,10473,934-716-4031,n/a,0090,0001,0003
+INSERT INTO Employee 0004,Chevalier,Aulio,n/a,330 First Ave,New York,NY,10029,877-200-3599,n/a,0032,0003,0004
+INSERT INTO Employee 0005,Cervantes,Leah,n/a,755 White Pls RD,Bronx,NY,10461,631-733-8223,n/a,0120,0001,0003
+INSERT INTO Employee 0006,Petersen,Linda,n/a,1123 Croes Ave,Bronx,NY,10461,610-950-3948,n/a,0015,0001,0001
+INSERT INTO Employee 0007,Ford,Crystal,Lynette,250 Broadway,Brooklyn,NY,11226,876-893-3695,n/a,0032,0002,0001
+INSERT INTO Employee 0008,Hagin,Paul,Timothy,35 Thorburn Avenue,Patchogue,NY,11772,845-744-5075,n/a,0015,0001,0003
+INSERT INTO Employee 0009,Korotchen,Aurora,n/a,837 51st St,Brooklyn,NY,11220,845-357-6017,n/a,0058,0003,0004
+INSERT INTO Employee 0010,Miles,Norma,Tammy,Laguardia Rd,Chester,NY,10915,848-896-8296,n/a,0032,0001,0003
+INSERT INTO Employee 0011,Potter,Lisa,n/a,166 Lakeside Dr,Oakdale,NY,11769,212-850-6105,n/a,0015,0001,0001
+CREATE TABLE Department
+ADD deptID char 5
+ADD deptName char 15
+ADD numberOfBeds char 5
+END
+INSERT INTO Department 0001,Surgery,0050
+INSERT INTO Department 0002,Emergency,0015
+INSERT INTO Department 0003,Maternity,0075
+CREATE TABLE DeptNeeds
+ADD deptNeedID char 5
+ADD dn_deptID char 5
+ADD dn_roleID char 5
+ADD dn_certID char 5
+ADD staffNeeded char 5
+END
+INSERT INTO DeptNeeds 0001,0001,0001,0001,0005
+INSERT INTO DeptNeeds 0002,0001,0001,0002,0007
+INSERT INTO DeptNeeds 0003,0001,0001,0003,0005
+INSERT INTO DeptNeeds 0004,0001,0003,0004,0003
+INSERT INTO DeptNeeds 0005,0002,0001,0001,0015
+INSERT INTO DeptNeeds 0006,0002,0003,0004,0005
+INSERT INTO DeptNeeds 0007,0003,0001,0001,0002
+INSERT INTO DeptNeeds 0008,0003,0001,0003,0015
+INSERT INTO DeptNeeds 0009,0003,0002,0001,0001
+CREATE TABLE Calendar
+ADD calendarID char 5
+ADD _date char 11
+ADD weekNumber char 3
+ADD dayOfWeek char 10
+END
+INSERT INTO Calendar 0001,2017-10-02,40,Monday
+INSERT INTO Calendar 0002,2017-10-03,40,Tuesday
+INSERT INTO Calendar 0003,2017-10-04,40,Wednesday
+INSERT INTO Calendar 0004,2017-10-05,40,Thursday
+INSERT INTO Calendar 0005,2017-10-06,40,Friday
+INSERT INTO Calendar 0006,2017-10-07,40,Saturday
+INSERT INTO Calendar 0007,2017-10-08,40,Sunday
+INSERT INTO Calendar 0008,2017-10-09,41,Monday
+INSERT INTO Calendar 0009,2017-10-10,41,Tuesday
+INSERT INTO Calendar 0010,2017-10-11,41,Wednesday
+INSERT INTO Calendar 0011,2017-10-12,41,Thursday
+INSERT INTO Calendar 0012,2017-10-13,41,Friday
+INSERT INTO Calendar 0013,2017-10-14,41,Saturday
+INSERT INTO Calendar 0014,2017-10-15,41,Sunday
+CREATE TABLE ShiftDesc
+ADD shiftDescID char 5
+ADD shiftName char 10
+ADD startTime char 6
+ADD duration char 6
+END
+INSERT INTO ShiftDesc 0001,7A-3P,07:00,08:00
+INSERT INTO ShiftDesc 0002,3P-11P,15:00,08:00
+INSERT INTO ShiftDesc 0003,11P-7A,23:00,08:00
+CREATE TABLE Schedule
+ADD scheduleID char 5
+ADD schedule_calendarID char 5
+ADD schedule_shiftDescID char 5
+ADD schedule_deptID char 5
+ADD schedule_employeeID char 5
+END
+INSERT INTO Schedule 0001,0001,0001,0001,0001
+INSERT INTO Schedule 0002,0002,0002,0002,0001
+INSERT INTO Schedule 0003,0003,0002,0002,0001
+INSERT INTO Schedule 0004,0004,0001,0002,0002
+INSERT INTO Schedule 0005,0005,0003,0003,0002
+INSERT INTO Schedule 0006,0006,0001,0003,0002
+INSERT INTO Schedule 0007,0001,0001,0001,0003
+INSERT INTO Schedule 0008,0002,0003,0001,0003
+INSERT INTO Schedule 0009,0003,0001,0001,0003
+INSERT INTO Schedule 0010,0004,0001,0001,0004
+INSERT INTO Schedule 0011,0005,0002,0002,0004
+INSERT INTO Schedule 0012,0006,0003,0003,0004
+INSERT INTO Schedule 0013,0005,0002,0003,0005
+INSERT INTO Schedule 0014,0007,0001,0002,0005
+INSERT INTO Schedule 0015,0007,0003,0002,0005
+INSERT INTO Schedule 0016,0003,0002,0002,0006
+INSERT INTO Schedule 0017,0004,0001,0002,0006
+INSERT INTO Schedule 0018,0005,0002,0003,0006
+INSERT INTO Schedule 0019,0001,0001,0001,0007
+INSERT INTO Schedule 0020,0002,0001,0003,0007
+INSERT INTO Schedule 0021,0003,0002,0003,0007
+INSERT INTO Schedule 0022,0002,0002,0002,0008
+INSERT INTO Schedule 0023,0003,0003,0001,0008
+INSERT INTO Schedule 0024,0004,0001,0001,0008
+INSERT INTO Schedule 0025,0005,0002,0002,0009
+INSERT INTO Schedule 0026,0007,0001,0002,0009
+INSERT INTO Schedule 0027,0007,0003,0002,0009
+INSERT INTO Schedule 0028,0001,0003,0003,0010
+INSERT INTO Schedule 0029,0003,0003,0003,0010
+INSERT INTO Schedule 0030,0004,0001,0001,0011
+INSERT INTO Schedule 0031,0007,0003,0001,0011

@@ -1,0 +1,6 @@
+SELECT deptName, _date, dayOfWeek, shiftName, roleName, certName, staffNeeded
+FROM Department, Calendar, DeptNeeds, Role, Certification, ShiftDesc
+WHERE deptID = dn_deptID
+AND roleID = dn_roleID
+AND certID = dn_certID
+END
