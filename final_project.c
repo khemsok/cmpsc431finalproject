@@ -93,14 +93,7 @@ bool loadSchema(struct _table* table)
         char buffer[MAXINPUTLENGTH];
         char* temp;
         int x = 0;
-        //printf("TESTING SCHEMA NAME: %s\n", table->schemaName);
         FILE* fp = fopen(table->schemaName, "rb");
-// fprintf(stderr, "TESTING NAME: %s\n", table->schemaName);
-        /*
-           if(strcmp(table->schemaName, "temp.schema") == 0){
-
-           fprintf(stderr, "TESTING BUFFER: %s\n", fgets(buffer, MAXINPUTLENGTH-1, fp));
-                }*/
         while (fgets(buffer, MAXINPUTLENGTH - 1, fp)) {
                 temp = strtok(buffer, " ");
 
@@ -108,10 +101,6 @@ bool loadSchema(struct _table* table)
 
                         int num;
                         temp = strtok(NULL, " ");
-                        /*
-                           if(strcmp(table->schemaName, "temp.schema") == 0) {
-                             fprintf(stderr, "TESTING LENGTH: %d\n", table->reclen);
-                           }*/
                         strcpy(table->fields[x].fieldName, temp);
                         temp = strtok(NULL, " ");
                         strcpy(table->fields[x].fieldType, temp);
@@ -120,10 +109,7 @@ bool loadSchema(struct _table* table)
                         table->fields[x].fieldLength = num;
                         table->reclen += num;
                         x++;
-                        /*
-                           if(strcmp(table->schemaName, "temp.schema")==0) {
-                             fprintf(stderr, "TEST FIELDNAME: %d\n", table->reclen);
-                           }*/
+       
                 }
                 if (strcmp(temp, "END\n") == 0) {
                         break;
@@ -275,54 +261,6 @@ void showRecord5(struct _field* fields, char *record, int fieldcount, char field
         int check1 = 0;
         int offset2 = 0;
         int check2 = 0;
-        //(fields[x].fieldName,
-//       int y = 0;
-//       int checkArr[countComp];
-//       int offseta = 0;
-//       int offsetb = 0;
-//       while(y < countComp){
-//         int p = 0;
-//         while(p < fieldcount){
-//           int a = y;
-//           int b = y+1;
-//           if(strcmp(fieldCompare[a], fields[p].fieldName) == 0){
-//             checkArr[a] = offseta;
-//           }
-//           if(strcmp(fieldCompare[b], fields[p].fieldName) == 0){
-//             checkArr[b] = offsetb;
-//           }
-//           offseta += fields[p].fieldLength;
-//           offsetb += fields[p].fieldLength;
-//           p++;
-//         }
-//         y = y+2;
-// }
-// y = 0;
-// while(y < countComp){
-//   if(strcmp(record+checkArr[y], record+checkArr[y+1]) != 0){
-//     break;
-//   }
-//   y = y+2;
-// }
-// if(y == countComp){
-//   x = 0;
-//   int offsetcheck = 0;
-//   while(x < countA){
-//     int z = 0;
-//     offsetcheck = 0;
-//     while(z < fieldcount){
-//       if(strcmp(fieldName[x], fields[z].fieldName) == 0){
-//         printf("%s,", record+offsetcheck);
-//       }
-//       offsetcheck += fields[z].fieldLength;
-//
-//
-//       z++;
-//     }
-//     x++;
-//   }
-//   printf("\n");
-// }
         while(x < fieldcount) {
                 if(strcmp(fieldCompare[0], fields[x].fieldName) == 0) {
                         check1 = offset1;
@@ -794,17 +732,17 @@ void processCommand(char* buffer)
 
                                         char c[MAXINPUTLENGTH];
                                         char create[MAXINPUTLENGTH];
-                                        //fprintf(stderr, "TESTING: %s\n", tableIndex.tableFileName);
+                       
                                         strcat(create, "CREATE TABLE ");
                                         strcat(create, tableIndex.tableFileName);
                                         strcat(create, "\n");
                                         fputs(create, schemaFP);
                                         // copy schema from input people to ipeople
-                                        //fgets(c, MAXINPUTLENGTH, schemaFP2)
+                         
                                         while(fgets(c,MAXINPUTLENGTH, schemaFP2)) {
                                                 char* buffer = malloc(strlen(c)+1);
                                                 strcpy(buffer, c);
-                                                //  fprintf(stderr, "TESTING BUFFER: %s\n", buffer);
+                                          
                                                 char* temp = strtok(buffer, " \n");
 
                                                 temp = strtok(NULL, " \n");
@@ -817,15 +755,14 @@ void processCommand(char* buffer)
                                         fclose(schemaFP);
                                         fclose(schemaFP2);
 
-                                        //fprintf(stderr, "TESTING: %s\n", tableIndex2.schemaName);
+                                  
                                         loadSchema(&tableIndex2);
                                         char* index2FileNameBin = malloc(strlen(tableIndex2.tableFileName)+5);
                                         addBin(index2FileNameBin, tableIndex2.tableFileName);
 
                                         FILE *fp2Bin = fopen(index2FileNameBin, "rb");
                                         char* record = calloc(1, tableIndex2.reclen);
-                                        //fprintf(stderr, "TESTING FILENAME: %s\n", index2FileNameBin);
-                                        //fprintf(stderr, "TESTING: %d\n", tableIndex2.fieldcount);
+                               
                                         int x = 0;
                                         int counter = 0;
                                         int offsetNums[tableIndex2.fieldcount];
@@ -856,15 +793,15 @@ void processCommand(char* buffer)
                                                         if(x < countIndex-1) {
                                                                 strcat(str[count], ",");
                                                         }
-                                                        //fprintf(stderr, "TESTING RECORD: %s\n", record+offsetNums[x]);
+                                              
                                                         x++;
                                                         indexFieldCount++;
                                                 }
-                                                //fprintf(stderr, "TESTING STR: %s\n", str[count]);
+                                     
                                                 count++;
 
                                         }
-                                        //fprintf(stderr, "TESTING LAST: %s\n", str[0]);
+                              
 
                                         for(int i = 0; i <= count; i++)
                                                 for(int j=i+1; j<=count; j++) {
@@ -881,9 +818,9 @@ void processCommand(char* buffer)
                                                 p = 0;
                                                 char* temp =strtok(str[x], ",\n");
                                                 while(temp != NULL) {
-                                                        //fprintf(stderr, "TESTING TEMP: %s\n", temp);
+                                              
                                                         strncpy(temp2, temp, 50);
-                                                        //fprintf(stderr, "TESTING FIELD LENGTH: %d\n", tableIndex.fields[p].fieldLength);
+                                                
                                                         fwrite(temp2, tableIndex.fields[p].fieldLength, 1, binFP);
                                                         p++;
                                                         temp = strtok(NULL, ",\n");
@@ -944,7 +881,7 @@ void processCommand(char* buffer)
                 strcpy(tempSelect, buffer);
                 tempSelect = strtok(tempSelect, " ,");
                 while (tempSelect != NULL) {
-                        //printf("TESTING SELECT STATEMENT: %s\n", tempSelect);
+            
                         tempSelect = strtok(NULL, " ,\n");
                         if (tempSelect == NULL) {
                                 break;
@@ -974,7 +911,7 @@ void processCommand(char* buffer)
                         strcpy(fromName[from], tokenFrom);
                         from++;
                 }
-                //fprintf(stderr, "TESTING FROM: %d\n", from);
+       
 
 
                 ///////////////////////////
@@ -1017,19 +954,16 @@ void processCommand(char* buffer)
                                 trimwhitespace(temp_buffer);
                                 printf("===> %s\n", temp_buffer);
 
-                                //fprintf(stderr, "TESTING: %s\n", table2.tableFileName);
-                                // SELECT --- FROM
-                                //fprintf(stderr, "TESTING BUFFER BLAH BLAH: %s\n", temp_buffer);
+                            
                                 if (strcmp(temp_buffer, "END") == 0) {
 
-                                        //  fprintf(stderr, "TESTING FIELDS: %s\n", fieldName[0]);
+                                
                                         while (counter < count) {
-                                                // fprintf(stderr, "TESTING\n");
+                                
                                                 char* record = calloc(1, table2.reclen);
                                                 getRecord(counter, record, &table2);
                                                 char temp3[MAXINPUTLENGTH];
-                                                // strcpy(temp3, buffer);
-                                                // char* temp4 = strtok(temp3, " ,");
+                                     
                                                 int a = 0;
 
                                                 int b = 0;
@@ -1063,7 +997,7 @@ void processCommand(char* buffer)
                                         fgets(temp_buffer2, MAXINPUTLENGTH - 1, stdin);
                                         trimwhitespace(temp_buffer2);
                                         printf("===> %s\n", temp_buffer2);
-                                        //fprintf(stderr, "TESTING BUFFER WHERE: %s\n", temp_buffer2);
+                              
 
                                         if (strcmp(temp_buffer2, "END") == 0) {
                                                 char tempX[MAXINPUTLENGTH];
@@ -1175,14 +1109,14 @@ void processCommand(char* buffer)
 
                 else{
 
-                        //fprintf(stderr, "TESTING FROM: %d\n", from);
+                 
                         int kat = 0;
                         char fieldName1[100][MAXINPUTLENGTH];
                         while(kat < countA) {
                                 strcpy(fieldName1[kat], fieldName[kat]);
                                 kat++;
                         }
-                        //  printf("TESTING FROM : %d\n", from);
+               
                         int from1 = from;
                         struct _table table2[from];
                         static char temp_bufferMulti[MAXINPUTLENGTH];
@@ -1206,17 +1140,17 @@ void processCommand(char* buffer)
                                 strcpy(tempCompA, temp_bufferMulti);
                                 tempCompB = strtok(tempCompA, " ,");
 
-                                //fprintf(stderr, "TESTING TEMPCOMP %s\n", tempCompB);
+                         
 
                                 while (tempCompB != NULL) {
                                         tempCompB = strtok(NULL, " ,=");
                                         if (tempCompB == NULL) {
                                                 break;
                                         }
-                                        //fprintf(stderr, "TESTTEMPCOMP: %s\n", tempCompB);
+                                 
                                         if (strcmp(tempCompB, "WHERE") != 0 || strcmp(tempCompB, "FROM") != 0) {
                                                 strcpy(fieldCompare[countComp], tempCompB);
-                                                //fprintf(stderr, "TESTING FIELD COMPARE : %s\n", fieldCompare[countComp]);
+                               
                                                 countComp++;
                                         }
                                 }
@@ -1240,7 +1174,7 @@ void processCommand(char* buffer)
                         }
                         x = 0;
 
-                        //fprintf(stderr, "TESTING FROM %d\n", from);
+                 
                         while (x < from1) {
 
                                 table2[x].tableFileName = malloc(strlen(fromName[x])+5);
@@ -1254,8 +1188,7 @@ void processCommand(char* buffer)
                                 stat(fromName[x], &st);
                                 int size = st.st_size;
                                 countFrom[x] = size / table2[x].reclen;
-                                //printf("TESTING COUNTFROM SIZE: %d\n", countFrom[x]);
-                                //fprintf(stderr, "TESTING COUNT: %d\n", countFrom[x]);
+                        
                                 if (countFrom[x] > countBig) {
                                         countBig = countFrom[x];
                                         fileBiggest = x;
@@ -1265,7 +1198,6 @@ void processCommand(char* buffer)
                         int key;
                         struct _table tablekey;
 
-                        //printf("TESTING FROM : %d\n", from);
                         for(int i = 1; i<from1; i++) {
                                 key = countFrom[i];
                                 tablekey = table2[i];
@@ -1296,7 +1228,7 @@ void processCommand(char* buffer)
                         FILE *tempBin1 = fopen("temp.bin", "wb");
                         FILE *tempSchema1 = fopen("temp.schema", "wb");
 
-                        //printf("TESTING FILE NAME: %s %s\n", table2[0].tableFileName, table2[0].schemaName);
+                 
                         FILE *readBin1 = fopen(table2[0].tableFileName, "rb");
                         FILE *readSchema1 = fopen(table2[0].schemaName, "rb");
 
@@ -1350,7 +1282,7 @@ void processCommand(char* buffer)
                                 FILE *tempBin2 = fopen("temp2.bin", "wb");
                                 FILE *tempSchema2 = fopen("temp2.schema", "wb");
 
-                                //printf("TESTING FILE NAME: %s %s\n", table2[0].tableFileName, table2[0].schemaName);
+                          
                                 FILE *readBin3 = fopen("temp.bin", "rb");
                                 FILE *readSchema3 = fopen("temp.schema", "rb");
 
@@ -1377,17 +1309,17 @@ void processCommand(char* buffer)
                                 int size1 = 0, size2 = 0, recordNum1 = 0, recordNum2 = 0;
 
                                 while((c = fgetc(readBin3)) != EOF) {
-                                        //  printf("%c", c);
+                                       
                                         size1++;
                                 }
-                                //  printf("TESTING RECLEN : %d\n", tempStructA.reclen);
+                         
                                 recordNum1 = size1 / tempStructA.reclen;
 
                                 while((c= fgetc(readBin4)) != EOF) {
-                                        //printf("%c", c);
+                                   
                                         size2++;
                                 }
-                                //printf("TESTING RECLEN : %d\n", size2);
+                             
                                 recordNum2 = size2 / tempStructB.reclen;
 
                                 fseek(readBin3, 0, SEEK_SET);
@@ -1432,7 +1364,7 @@ void processCommand(char* buffer)
                                 FILE *tempBin3 = fopen("temp3.bin", "wb");
                                 FILE *tempSchema3 = fopen("temp3.schema", "wb");
 
-                                //printf("TESTING FILE NAME: %s %s\n", table2[0].tableFileName, table2[0].schemaName);
+                           
                                 FILE *readBin5 = fopen("temp2.bin", "rb");
                                 FILE *readSchema5 = fopen("temp2.schema", "rb");
 
@@ -1458,17 +1390,17 @@ void processCommand(char* buffer)
                                 int size1 = 0, size2 = 0, recordNum1 = 0, recordNum2 = 0;
 
                                 while((c = fgetc(readBin5)) != EOF) {
-                                        //  printf("%c", c);
+                                     
                                         size1++;
                                 }
-                                //  printf("TESTING RECLEN : %d\n", tempStructA.reclen);
+                  
                                 recordNum1 = size1 / tempStructA.reclen;
 
                                 while((c= fgetc(readBin6)) != EOF) {
-                                        //printf("%c", c);
+                                  
                                         size2++;
                                 }
-                                //printf("TESTING RECLEN : %d\n", size2);
+                   
                                 recordNum2 = size2 / tempStructB.reclen;
 
                                 fseek(readBin5, 0, SEEK_SET);
@@ -1510,7 +1442,7 @@ void processCommand(char* buffer)
                                 FILE *tempBin4 = fopen("temp4.bin", "wb");
                                 FILE *tempSchema4 = fopen("temp4.schema", "wb");
 
-                                //printf("TESTING FILE NAME: %s %s\n", table2[0].tableFileName, table2[0].schemaName);
+                         
                                 FILE *readBin7 = fopen("temp3.bin", "rb");
                                 FILE *readSchema7 = fopen("temp3.schema", "rb");
 
@@ -1536,17 +1468,17 @@ void processCommand(char* buffer)
                                 int size1 = 0, size2 = 0, recordNum1 = 0, recordNum2 = 0;
 
                                 while((c = fgetc(readBin7)) != EOF) {
-                                        //  printf("%c", c);
+                                      
                                         size1++;
                                 }
-                                //  printf("TESTING RECLEN : %d\n", tempStructA.reclen);
+                        
                                 recordNum1 = size1 / tempStructA.reclen;
 
                                 while((c= fgetc(readBin8)) != EOF) {
                                         //printf("%c", c);
                                         size2++;
                                 }
-                                //printf("TESTING RECLEN : %d\n", size2);
+                         
                                 recordNum2 = size2 / tempStructB.reclen;
 
                                 fseek(readBin7, 0, SEEK_SET);
@@ -1589,7 +1521,7 @@ void processCommand(char* buffer)
                                         FILE *tempBin5 = fopen("temp5.bin", "wb");
                                         FILE *tempSchema5 = fopen("temp5.schema", "wb");
 
-                                        //printf("TESTING FILE NAME: %s %s\n", table2[0].tableFileName, table2[0].schemaName);
+
                                         FILE *readBin9 = fopen("temp4.bin", "rb");
                                         FILE *readSchema9 = fopen("temp4.schema", "rb");
 
@@ -1615,17 +1547,17 @@ void processCommand(char* buffer)
                                         int size1 = 0, size2 = 0, recordNum1 = 0, recordNum2 = 0;
 
                                         while((c = fgetc(readBin9)) != EOF) {
-                                                //  printf("%c", c);
+                                           
                                                 size1++;
                                         }
-                                        //  printf("TESTING RECLEN : %d\n", tempStructA.reclen);
+                              
                                         recordNum1 = size1 / tempStructA.reclen;
 
                                         while((c= fgetc(readBin10)) != EOF) {
-                                                //printf("%c", c);
+                                         
                                                 size2++;
                                         }
-                                        //printf("TESTING RECLEN : %d\n", size2);
+                                   
                                         recordNum2 = size2 / tempStructB.reclen;
 
                                         fseek(readBin9, 0, SEEK_SET);
@@ -1683,15 +1615,11 @@ void processCommand(char* buffer)
                         stat(tableSelect.tableFileName, &st);
                         int size = st.st_size;
                         int rec_num = size/tableSelect.reclen;
-                        // printf("TESTING RECNUM: %d\n", rec_num);
-                        // printf("TESTING SIZE: %d\n", size);
-                        // printf("TESTING RECLENGTH: %d\n", tableSelect.reclen);
-                        // printf("TESTING FIELDCOUNT: %d\n", tableSelect.fieldcount);
+
                         x = 0;
                         int offset = 0;
                         int numx=0;
-                        // printf("TESTING FIELDCOMPARE : %s\n", fieldCompare[3]);
-                        //  temp.fields
+
                         while(numx < rec_num) {
                                 char* record = calloc(1, MAXINPUTLENGTH);
                                 getRecord(numx, record, &tableSelect);
@@ -1740,11 +1668,11 @@ int main()
                 if (strlen(buffer) < 5)
                         break; // not a real command, CR/LF, extra line, etc.
                 printf("===> %s\n", buffer);
-                // fprintf(stderr, "TESTING BUFFER: %s\n", buffer);
+
                 processCommand(buffer);
                 status = fgets(buffer, MAXINPUTLENGTH - 1, stdin);
                 x++;
-                // fprintf(stderr, "TESTING X: %d\n", x);
+
         }
         printf("Goodbye!\n");
         return 0;
